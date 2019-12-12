@@ -1,0 +1,25 @@
+(Pergunta 1)
+A ordem de exploração foi de acordo com o esperado?
+- 
+- 
+(Pergunta 2)
+Essa é uma solução ótima? 
+- Não, o pacman ta seguindo por caminho mais longo
+Senão, o que a busca em profundidade está fazendo de errado?
+-
+
+(Pergunta 3)
+
+
+(Pergunta 4) O que acontece em openMaze para as várias estratégias de busca?
+Busca em Profunidade: O pacman dá muitas voltas, percorre um caminho muito longo, tem custo 298 e pesquisa 577 nós, no caso, quadrados
+python pacman.py -l openMaze -p SearchAgent -a fn=dfs -z .5
+
+Busca em Largura: O pacman dá poucas voltas, porém, ele verifica 682 nós(quadrados). Tem vantagem no custo, 54
+python pacman.py -l openMaze -p SearchAgent -a fn=bfs -z .5
+
+Busca de custo uniforme: Funciona exatamente como busca em largura, verifica 682 nós e tem custo 54
+python pacman.py -l openMaze -p SearchAgent -a fn=ucs -z .5
+
+Busca A*: Verifica somente 211 nós(quadrados), tem custo 54 também, eh a melhor busca
+python pacman.py -l openMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic 
