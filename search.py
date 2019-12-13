@@ -100,7 +100,8 @@ def depthFirstSearch(problem):
   mas fica mais didatico assim"""
   c_Inicial = problem.getStartState()
   """Responsavel por botar na pilha a coordenada inicial e uma lista de direcao
-  poderia ser pilha.push((problem.getStartState(), [])"""
+  poderia ser pilha.push((problem.getStartState(), [])
+  Exemplo: ((x,y), string) sendo string a direção que o pacman ta tomando"""
   pilha.push((c_Inicial, []))
   """Enquanto a pilha nao estah completamente vazia ou nao chegar ao objetivo"""
   while not pilha.isEmpty():
@@ -120,13 +121,13 @@ def depthFirstSearch(problem):
       essa coordenada em nos explorados"""
       if coordenada not in nos_Explorados:
           nos_Explorados.append(coordenada)
-          """Responsavel por expandir o noh atual e verificar os sucessores possiveis"""
+          """Responsavel por verificar os sucessores possiveis do noh atual, o estado atual do pacman"""
           for aux in problem.getSuccessors(coordenada):
               #print ("Cordenada: ", coordenada)
               #print ("Sucessores: ", aux)
-              """Se a coordenada do noh sucessor nao estiver em no explorado
+              """Se a coordenada do noh sucessor nao estiver em noh explorado
               eh posto na pilha a coordenada desse noh sucessor e tbm a soma de todas
-              as sequencias de passos que ja foram dados ateh agora"""
+              as sequencias de passos que ja foram dados ateh agora mais essa"""
               if aux[0] not in nos_Explorados:
                   pilha.push((aux[0], (seq_Passos + [aux[1]])))
   #util.raiseNotDefined()
@@ -134,7 +135,8 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
   "Search the shallowest nodes in the search tree first. [p 81]"
   "*** YOUR CODE HERE ***"
-  """A diferenca estah apenas na implementacao do util.Queue, o resto da funcao funciona
+  """A diferenca estah apenas na implementacao do util.Queue, que empilha as direções, tornando a precedencia
+  de direção diferente, no caso, cima, baixo, direita, esquerda. O resto da funcao funciona
   da mesma maneira que a de busca em profundidade"""
   #python pacman.py -l mediumMaze -p SearchAgent -a fn=bfs
   #python pacman.py -l bigMaze -p SearchAgent -a fn=bfs -z .5
@@ -162,7 +164,8 @@ def breadthFirstSearch(problem):
 def uniformCostSearch(problem):
   "Search the node of least total cost first. "
   "*** YOUR CODE HERE ***"
-  """A busca por custo uniforme utiliza a funcao priorityqueue para auxiliar nossa busca"""
+  """A busca por custo uniforme utiliza a funcao PriorityQueue para auxiliar nossa busca,
+  essa função dá pop no item de menor custo que estiver na fila"""
   #python pacman.py -l mediumMaze -p SearchAgent -a fn=ucs
   #python pacman.py -l mediumDottedMaze -p StayEastSearchAgent
   #python pacman.py -l mediumScaryMaze -p StayWestSearchAgent
@@ -187,10 +190,10 @@ def uniformCostSearch(problem):
           nos_Explorados.append(coordenada)
           for aux in problem.getSuccessors(coordenada):
               """A diferenca entre esse codigo e os outros dois acima estah no custo...
-              O custo eh calculado pela funcao problem.getCostOfActions que recebe a
-              a sequencia de passos que o pacman deu ateh agora... eh importante lembrar
-              que no fim... o retorno eh do caminho mais otimizado... consequentemente
-              com o custo mais interessante... serah posto na fila o custo ateh agora"""
+              O custo eh calculado pela funcao problem.getCostOfActions, que eh o tamanho 
+              de seq_Passos... poderia ser len(seq_Passos)... 
+              eh importante lembrar que no pop... o retorno eh do menor custo da fila...
+              Eh assim que funciona o heapq.heappop"""
               if aux[0] not in nos_Explorados:
                   nova_Sequencia = seq_Passos + [aux[1]]
                   custo = problem.getCostOfActions(nova_Sequencia)
@@ -213,6 +216,9 @@ def aStarSearch(problem, heuristic=nullHeuristic):
   O restultado disso eh que a busca, quando dado pop, verifica o caminho de
   menor custo ateh o estado atual do pacman e continua por esse caminho
   meio que ignorando os caminhos que chegue a um custo maior
+  A precedencia eh o custo nesse caso... Na fila, quem eh posto na frente pela
+  função PriorityQueue, são as coordenadas que possuem o menor custo ateh o momento
+  do pacman
   """
   #python pacman.py -l bigMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
   #python pacman.py -l openMaze -z .5 -p SearchAgent -a fn=astar,heuristic=manhattanHeuristic
